@@ -42,6 +42,8 @@
 			       <th >Name</th>
 			       <th>Department Code</th>
              <th>Faculty</th>
+             <th>No. of Sections</th>
+             <th>No. of Instructors</th>
 			       <th>Action</th>
      			</tr>
                 
@@ -51,6 +53,8 @@
 		          <td>{{$department->department_name}}</td>
 		          <td>{{$department->department_code}}</td>
               <td>{{$department->faculty->name}}</td>
+              <td>{{count($department->sections()->get())}}</td>
+              <td>{{count($department->instructors()->get())}}</td>
 		          <td>
 		            <form action="{{ route('departments.destroy', $department->id) }}" method="post">
 		              <a class="abel label-success" href="{{route('departments.show',$department->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Section;
 use Illuminate\Http\Request;
-
+use App\Department;
+use App\Classroom;
+use App\Batch;
+use Auth;
 class SectionController extends Controller
 {
     /**
@@ -14,7 +17,9 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        $sections= Section::latest()->paginate(15);
+        return view('sections.index', compact('sections'))
+        ->with('i', (request()->input('page', 1) -1 )*15);
     }
 
     /**
@@ -24,7 +29,10 @@ class SectionController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $batches  = Batch::all();
+        $classrooms = Classroom::all();
+        return view('sections.create', compact('classrooms'), compact('departments'))->with('batches', $batches);
     }
 
     /**
@@ -35,7 +43,27 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([
+            'section_name'  => 'required',
+            'shift'         => 'required',
+            'department_id' => 'required',
+            'batch_id'      => 'required',
+            
+        ]);
+
+        $section = new Section([
+
+            'section_name'   => $request->get('section_name'),
+            'shift'          => $request->get('shift'),  
+            'department_id'  => $request->get('department_id'),  
+            'batch_id'          => $request->get('shift'),  
+            'classroom_id'  => $request->get('department_id'),  
+            'user_id'        => Auth::id(),
+        ]);
+
+        Section::create($request->all());
+        return redirect()->route('sections.index')
+                       ->with('success', 'New Section is created successfully');
     }
 
     /**
@@ -57,7 +85,7 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+         return view('sections.edit', compact('section'));
     }
 
     /**
@@ -69,7 +97,26 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //
+         $request->validate([
+            'section_name'  => 'required',
+            'shift'         => 'required',
+            'department_id' => 'required',
+            'batch_id'      => 'required',
+            
+
+        ]);
+
+            $section->section_name      = $request->get('section_name');
+            $section->shift             = $request->get('shift');
+            $section->department_id     = $request->get('department_id');
+            $section->batch_id          = $request->get('batch_id');
+            $section->classroom_id      = $request->get('classroom_id'); 
+
+            
+            $section->user_id        = Auth::id();
+            $section->save();
+            return redirect()->route('sections.index')
+                      ->with('success', 'Section updated successfully');
     }
 
     /**
@@ -80,6 +127,8 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $section->delete();
+            return redirect()->route('sections.index')
+                      ->with('success', 'Section deleted successfully');
     }
 }

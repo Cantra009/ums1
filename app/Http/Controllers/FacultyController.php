@@ -14,7 +14,7 @@ class FacultyController extends Controller
      */
     public function index()
     {
-         $faculties= Faculty::latest()->paginate(10);
+        $faculties= Faculty::latest()->paginate(10);
         return view('faculties.index', compact('faculties'))
         ->with('i', (request()->input('page', 1) -1 )*15);
     }

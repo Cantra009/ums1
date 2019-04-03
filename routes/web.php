@@ -47,3 +47,6 @@ Route::resource('faculties', 'FacultyController');
 Route::resource('classrooms', 'ClassroomController');
 Route::resource('courses', 'CourseController');
 Route::resource('departments', 'DepartmentController');
+Route::resource('instructors', 'InstructorController');
+Route::resource('sections', 'SectionController');
+Route::resource('semesters', 'SemesterController');

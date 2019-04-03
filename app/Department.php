@@ -15,4 +15,12 @@ class Department extends Model
     public function faculty(){
     	return $this->belongsTo('App\Faculty');
     }
+
+    public function instructors(){
+    	return $this->hasMany('App\Instructor');
+    }
+
+     public function sections(){
+    	return $this->hasMany('App\Section');
+    }
 }

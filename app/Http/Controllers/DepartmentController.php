@@ -15,7 +15,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::latest()->paginate(10);
+        $departments = Department::latest()->paginate(15);
         return view('departments.index', compact('departments'))
         ->with('i', (request()->input('page', 1) -1 )*15);
     }
@@ -119,7 +119,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        $department->departments();
+        $department->delete();
       return redirect()->route('departments.index')
                       ->with('success', 'Department updated successfully');
     }

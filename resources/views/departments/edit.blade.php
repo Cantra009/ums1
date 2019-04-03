@@ -21,7 +21,7 @@
       @csrf
       @method('PUT')
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-10">
         <div class="box-body">
                 <div class="form-group">
                   <label for="campus_name">Department Name</label>
@@ -46,9 +46,9 @@
                 </div>
               </div>
                 <div class="box-footer">
-                <a href="{{route('batches.index')}}" class="btn btn-sm btn-success">Back</a>
+                <a href="{{route('departments.index')}}" class="btn btn-sm btn-success">Back</a>
                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-        </div>
+                </div>
               </div>
               <!-- /.box-body -->
 

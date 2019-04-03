@@ -15,4 +15,10 @@ class Classroom extends Model
     public function campus(){
     	return $this->belongsTo('App\Campus');
     }
+
+    public function sections(){
+    	return $this->hasMany('App\Section');
+    }
+
+    
 }

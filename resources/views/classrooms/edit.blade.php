@@ -21,7 +21,7 @@
       @csrf
       @method('PUT')
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-12">
         <div class="box-body">
                 <div class="form-group">
                   <label for="campus_name">Batch Name</label>

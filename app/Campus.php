@@ -10,7 +10,10 @@ class Campus extends Model
         'name',
         'address'       
     ];
-
+    
+    public function classrooms(){
+    	return $this->hasMany('App\Classroom');
+    }
 
      
 }

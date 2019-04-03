@@ -12,7 +12,7 @@ class Faculty extends Model
         'description'       
     ];
 
-    public function department(){
+    public function departments(){
     	return $this->hasMany('App\Department');
     }
 }

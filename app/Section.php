@@ -10,6 +10,31 @@ class Section extends Model
         'section_name',
         'shift',
         'department_id',
-        'batch_id'    
+        'batch_id',
+        'classroom_id'    
     ];
+
+    public function department(){
+
+    	return $this->belongsTo('App\Department');
+    }
+
+
+    public function batch(){
+			return $this->belongsTo('App\Batch');
+    }
+
+    public function classroom(){
+			return $this->belongsTo('App\Classroom');
+    }
+
+    public function students(){
+			return $this->hasMany('App\Student');
+    }
+
+
+
 }
+
+
+
