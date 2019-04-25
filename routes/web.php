@@ -40,7 +40,7 @@ Route::get('/departments', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('student', 'StudentController');
+Route::resource('students', 'StudentController');
 Route::resource('campuses', 'CampusController');
 Route::resource('batches', 'BatchController');
 Route::resource('faculties', 'FacultyController');

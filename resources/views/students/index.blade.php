@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h3>Sections</h3>
+        <h3>Students</h3>
       </div>
       <div class="col-sm-2">
-        <a class="btn btn-sm btn-info" href="{{ route('sections.create') }}">Create New Sections</a>
+        <a class="btn btn-sm btn-info" href="{{ route('students.create') }}">Create New Student</a>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
 		<div class="col-xs-10">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Sections List</h3>
+              <h3 class="box-title">Student List</h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -39,30 +39,41 @@
               <table class="table table-hover">
                 <tbody><tr>
 			       <th >No.</th>
-			       <th >Name</th>
-			       <th>Shift</th>
-             <th>Department</th>
-             <th>Batch</th>
-             <th>Class Room</th>
-             <th>No. Students</th>
+			       <td>Name</td>
+             <td>ID No</td>
+             <td>DOB</td>
+             <td>Gender</td>
+             <td>Phone</td>
+             <td>Department</td>
+             <td>Batch</td>
+             <td>Shift</td>
+             <td>Section</td>
+             <td>Status</td>
+             <td>Photo</td>
 			       <th>Action</th>
      			</tr>
-                
-      			@foreach ($sections as $section)
+ 
+
+      			@foreach ($students as $student)
         		<tr>
 		          <td><b>{{++$i}}.</b></td>
-		          <td>{{$section->section_name}}</td>
-		          <td>{{$section->shift}}</td>
-              <td>{{$section->department->department_code}}</td>
-              <td>{{$section->batch->name}}</td>
-              <td>{{$section->classroom['room_label']}}</td>
-              <td>{{count($section->students()->get())}}</td>
+		          <td>{{$student->full_name}}</td>
+		          <td>{{$student->id_no}}</td>
+              <td>{{$student->dob}}</td>
+              <td>{{$student->gender}}</td>
+              <td>{{$student->phone}}</td>
+              <td>{{$student->department['department_code']}}</td>
+              <td>{{$student->batch['name']}}</td>
+              <td>{{$student->shift}}</td>
+              <td>{{$student->section['section_name']}}</td>
+              <td>{{$student->status}}</td>
+              <td>@if($student->photo != null)<img src="{{ asset( 'public/storage/photos/' . $student->photo ) }}" width="50px" height="60px"> @endif</td>
 		          <td>
-		            <form action="{{ route('sections.destroy', $section->id) }}" method="post">
-		              <a class="abel label-success" href="{{route('sections.show',$section->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>
+		            <form action="{{ route('students.destroy', $student->id) }}" method="post">
+		              <a class="abel label-success" href="{{route('students.show',$student->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>
 
-
-		              <a class="abel label-warning" href="{{route('sections.edit',$section->id)}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                   
+		              <a class="abel label-warning" href="{{route('students.edit',$student->id)}}"><span class="glyphicon glyphicon-pencil"></span></a>
 		              @csrf
 		              @method('DELETE')
 		              <button type="submit" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></button>
@@ -72,7 +83,7 @@
      		 @endforeach
               </tbody></table>
               <div class="box-footer">
-            {!! $sections->links() !!}
+            {!! $students->links() !!}
           </div>
             </div>
             <!-- /.box-body -->
