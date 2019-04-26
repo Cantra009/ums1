@@ -19,6 +19,10 @@ class Course extends Model
     	return $this->belongsTo('App\Department');
     }
 
+    public function semester(){
+        return $this->belongsTo('App\Semester');
+    }
+
     public function students(){
     	return $this->hasMany('App\Student');
     }
@@ -26,4 +30,6 @@ class Course extends Model
     public function prerequisite(){
     	return $this->belongsTo('App\Course' , 'prerequisite_id');
     }
+
+    
 }

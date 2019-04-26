@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h3>Courses</h3>
+        <h3>Course Offerings</h3>
       </div>
       <div class="col-sm-2">
-        <a class="btn btn-sm btn-info" href="{{ route('courses.create') }}">Create New Course</a>
+        <a class="btn btn-sm btn-info" href="{{ route('course_offerings.create') }}">Create New Course</a>
       </div>
     </div>
 
@@ -22,7 +22,7 @@
 		<div class="col-xs-10">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Course List</h3>
+              <h3 class="box-title">Course Offering List</h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -56,7 +56,7 @@
               <td>{{$course->credit_hours}}</td>
               <td>{{$course->course_fee}}</td>
               <td>{{$course->prerequisite['course_code']}}</td>
-              <td>@if($course->department_id !=0){{$course->department->department_code}}@endif</td>
+              <td>{{$course->department->department_code}}</td>
 		          <td>
 		            <form action="{{ route('courses.destroy', $course->id) }}" method="post">
 		              <a class="abel label-success" href="{{route('courses.show',$course->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>

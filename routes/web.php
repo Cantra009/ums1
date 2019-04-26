@@ -21,7 +21,7 @@ Route::get('/', function () {
 
   
 Route::get('/students', function () {
-        return view('student');
+        return view('students.index');
         
     })->middleware('auth');
 
@@ -37,16 +37,19 @@ Route::get('/departments', function () {
         
     })->middleware('auth');
 
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('students', 'StudentController');
-Route::resource('campuses', 'CampusController');
-Route::resource('batches', 'BatchController');
-Route::resource('faculties', 'FacultyController');
-Route::resource('classrooms', 'ClassroomController');
-Route::resource('courses', 'CourseController');
-Route::resource('departments', 'DepartmentController');
-Route::resource('instructors', 'InstructorController');
-Route::resource('sections', 'SectionController');
-Route::resource('semesters', 'SemesterController');
+Route::resource('students', 'StudentController')->middleware('auth');
+Route::resource('campuses', 'CampusController')->middleware('auth');
+Route::resource('batches', 'BatchController')->middleware('auth');
+Route::resource('faculties', 'FacultyController')->middleware('auth');
+Route::resource('classrooms', 'ClassroomController')->middleware('auth');
+Route::resource('courses', 'CourseController')->middleware('auth');
+Route::resource('departments', 'DepartmentController')->middleware('auth');
+Route::resource('instructors', 'InstructorController')->middleware('auth');
+Route::resource('sections', 'SectionController')->middleware('auth');
+Route::resource('semesters', 'SemesterController')->middleware('auth');
+Route::resource('course_offerings', 'CourseOfferingController')->middleware('auth');
+
