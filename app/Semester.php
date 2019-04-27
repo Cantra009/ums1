@@ -23,5 +23,9 @@ class Semester extends Model
 			return $this->hasMany('App\Course');
     }
 
+    public function coursesOfferings(){
+			return $this->hasMany('App\CourseOffering');
+    }
+
 
 }

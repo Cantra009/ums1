@@ -31,5 +31,7 @@ class Course extends Model
     	return $this->belongsTo('App\Course' , 'prerequisite_id');
     }
 
-    
+    public function courseOfferings(){
+            return $this->belongsToMany( 'App\CourseOffering', 'courses_course_offering', 'course_id', 'course_offering_id' );
+    }
 }

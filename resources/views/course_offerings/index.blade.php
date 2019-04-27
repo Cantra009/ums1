@@ -39,30 +39,32 @@
               <table class="table table-hover">
                 <tbody><tr>
 			       <th >No.</th>
-			       <th >Course Title</th>
-			       <th>Course Code</th>
-             <th>Credit Hours</th>
-             <th>Course Fee</th>
-             <th>Prerequisite</th>
-             <th>Department</th>
+			       <th >Batch</th>
+			       <th>Department</th>
+             <th>Semester</th>
+             <th>No. Course</th>
+             <th>Registration Due date</th>
+             <th>Registration End date</th>
+             <th>Semester End Date</th>
 			       <th>Action</th>
      			</tr>
                
-      			@foreach ($courses as $course)
+      			@foreach ($courseOfferings as $courseOffering)
         		<tr>
 		          <td><b>{{++$i}}.</b></td>
-		          <td>{{$course->course_name}}</td>
-		          <td>{{$course->course_code}}</td>
-              <td>{{$course->credit_hours}}</td>
-              <td>{{$course->course_fee}}</td>
-              <td>{{$course->prerequisite['course_code']}}</td>
-              <td>{{$course->department->department_code}}</td>
+		          <td>{{$courseOffering->batch->name}}</td>
+		          <td>{{$courseOffering->department->department_code}}</td>
+              <td>{{$courseOffering->semester->semester_name}}</td>
+              <td>{{count($courseOffering->courses()->get())}}</td>
+              <td>{{$courseOffering->due_date}}</td>
+              <td>{{$courseOffering->end_date}}</td>
+              <td>{{$courseOffering->semester->end_date}}</td>
 		          <td>
-		            <form action="{{ route('courses.destroy', $course->id) }}" method="post">
-		              <a class="abel label-success" href="{{route('courses.show',$course->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>
+		            <form action="{{ route('course_offerings.destroy', $courseOffering->id) }}" method="post">
+		              <a class="abel label-success" href="{{route('course_offerings.show',$courseOffering->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>
 
 
-		              <a class="abel label-warning" href="{{route('courses.edit',$course->id)}}"><span class="glyphicon glyphicon-pencil"></span></a>
+		              <a class="abel label-warning" href="{{route('course_offerings.edit',$courseOffering->id)}}"><span class="glyphicon glyphicon-pencil"></span></a>
 		              @csrf
 		              @method('DELETE')
 		              <button type="submit" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></button>
@@ -72,7 +74,7 @@
      		 @endforeach
               </tbody></table>
               <div class="box-footer">
-            {!! $courses->links() !!}
+            {!! $courseOfferings->links() !!}
           </div>
             </div>
             <!-- /.box-body -->

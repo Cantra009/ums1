@@ -6,7 +6,10 @@ use App\CourseOffering;
 use Illuminate\Http\Request;
 use App\Semester;
 use App\Course;
+use App\Batch;
 use App\Department;
+use Auth;
+
 
 class CourseOfferingController extends Controller
 {
@@ -17,6 +20,9 @@ class CourseOfferingController extends Controller
      */
     public function index()
     {
+          $courseOfferings = CourseOffering::latest()->with('courses')->orderBy('batch_id')->paginate(15);
+        return view('course_offerings.index', compact('courseOfferings'))
+        ->with('i', (request()->input('page', 1) -1 )*15);
         
     }
 
@@ -30,7 +36,8 @@ class CourseOfferingController extends Controller
         
             $semesters = Semester::all();
             $departments = Department::all();
-            return view('course_offerings.create', compact('departments'))->with('semesters', $semesters);
+            $batches = Batch::all();
+            return view('course_offerings.create', compact('departments'))->with('semesters', $semesters)->with('batches', $batches);
         
     }
 
@@ -45,12 +52,40 @@ class CourseOfferingController extends Controller
      */
     public function store(Request $request)
     {
-       if(!empty($request->get('semester_id'))){
-            $semester = $request->get('semester_id');
-            $courses = Course::where('department_id', $request->get('department_id'))->orWhere('department_id', 0);
-            return view('course_offerings.create', compact('departments', 'courses', 'semesters'))->with('semester', $semester);
-        }else{ 
+        echo $request->get('status');
+       if($request->get('status') === 'selection'){
+            $data = [
+            'semester_id' => $request->get('semester_id'),
+            'batch_id' => $request->get('batch_id'),
+            'department_id' => $request->get('department_id'),
+            'due_date' => $request->get('due_date'),
+            'end_date' => $request->get('end_date')
+            ];
+            $courses = Course::where(['department_id' => $request->get('department_id')])->orWhere(['department_id' => 0])->get();
             
+            return view('course_offerings.submit', compact('data'))->with('courses', $courses);
+        }
+        elseif($request->get('status') === 'submit')
+        { 
+           
+            $valueSet = $request->get('valueset');
+            $courses = explode(',', $valueSet);
+            
+
+            $courseOffering = new CourseOffering([
+
+                'semester_id' => $request->get('semester_id'),
+                'batch_id' => $request->get('batch_id'),
+                'department_id' => $request->get('department_id'),
+                'due_date' => $request->get('due_date'),
+                'end_date' => $request->get('end_date'),
+                'user_id'       => Auth::id(),
+            ]);
+            $courseOffering->save();
+            $courseOffering->courses()->attach($courses);
+            
+            return redirect()->route('course_offerings.index')
+                     ->with('success', 'new course  offering created successfully');
         }  
 
     }
@@ -97,6 +132,8 @@ class CourseOfferingController extends Controller
      */
     public function destroy(CourseOffering $courseOffering)
     {
-        //
+        $courseOffering->delete();
+        return redirect()->route('course_offerings.index')
+                      ->with('success', 'Course deleted successfully');
     }
 }

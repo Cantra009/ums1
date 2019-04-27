@@ -20,16 +20,26 @@
 
 
 
-<div class="col-md-3">
+<div class="col-md-7">
   <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Select semester and department</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form action="{{route('course_offerings.create')}}" method="post">
+            <form action="{{route('course_offerings.store')}}" method="post">
             @csrf
               <div class="box-body">
+                <input type="hidden" name="status" value="selection" />
+                <div class="form-group">
+                      <label for="exampleInputPassword1">Batch</label>
+                      <select class="form-control" name="batch_id">
+                        
+                        @foreach($batches as $batch)
+                        <option value="{{$batch->id}}">{{$batch->name}}</option>
+                        @endforeach
+                      </select>
+                    </div>
                 <div class="form-group">
                       <label for="exampleInputPassword1">Department</label>
                       <select class="form-control" name="department_id">
@@ -41,7 +51,7 @@
                     </div>
                      <div class="form-group">
                       <label for="exampleInputPassword1">Semester</label>
-                      <select class="form-control" name="department_id">
+                      <select class="form-control" name="semester_id">
                         
                         @foreach($semesters as $semester)
                         <option value="{{$semester->id}}">{{$semester->semester_name}}</option>

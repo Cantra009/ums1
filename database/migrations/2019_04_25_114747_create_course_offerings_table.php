@@ -17,8 +17,10 @@ class CreateCourseOfferingsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('semester_id')->unsigned();
-            $table->bigInteger('course_id')->unsigned();
             $table->bigInteger('department_id')->unsigned();
+            $table->bigInteger('batch_id')->unsigned();
+            $table->date('due_date')->unsigned();
+            $table->date('end_date')->unsigned();
             $table->bigInteger('user_id')->unsigned();
         });
     }

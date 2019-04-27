@@ -11,4 +11,12 @@ class Batch extends Model
         'start_year',
         'end_year'       
     ];
+
+    public function students(){
+    	return $this->hasMany('App\Student');
+    }
+
+    public function courseOfferings(){
+    	return $this->hasMany('App\CourseOffering');
+    }
 }
