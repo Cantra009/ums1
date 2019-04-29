@@ -98,7 +98,8 @@ class CourseOfferingController extends Controller
      */
     public function show(CourseOffering $courseOffering)
     {
-        //
+        $courses = $courseOffering->courses;
+        return view('course_offerings.detail', compact('courseOffering'))->with('courses', $courses);
     }
 
     /**
@@ -109,7 +110,9 @@ class CourseOfferingController extends Controller
      */
     public function edit(CourseOffering $courseOffering)
     {
-        //
+         $courses = Course::where(['department_id' => $courseOffering->department_id])->orWhere(['department_id' => 0])->get();
+        
+            return view('course_offerings.edit', compact('courseOffering'))->with('courses', $courses);
     }
 
     /**
@@ -121,7 +124,29 @@ class CourseOfferingController extends Controller
      */
     public function update(Request $request, CourseOffering $courseOffering)
     {
-        //
+        $request->validate([
+            'valueset'=>'required',
+           
+
+        ]);
+
+
+        $oldCourses = $courseOffering->courses;
+        $courseOffering->department_id = $request->get('department_id');
+        $courseOffering->batch_id  = $request->get('batch_id');
+        $courseOffering->semester_id  = $request->get('semester_id');
+        $courseOffering->due_date  = $request->get('due_date');
+        $courseOffering->end_date  = $request->get('end_date');
+
+        $courseOffering->user_id = Auth::id();
+        $valueSet = $request->get('valueset');
+        $courses = explode(',', $valueSet);
+
+        $courseOffering->courses()->detach($oldCourses);
+        $courseOffering->save();
+        $courseOffering->courses()->attach($courses);
+        return redirect()->route('course_offerings.index')
+                      ->with('success', 'Course Offering updated successfully');
     }
 
     /**

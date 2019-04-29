@@ -1,12 +1,89 @@
 @extends('adminlte::page')
+
+<script type="text/javascript">
+    function movevalues(){
+      var courses = document.getElementById("courses");
+      //var teachers = document.getElementById("teachers");
+      
+      var course = courses.options[courses.selectedIndex].text;
+      //var teacher = teachers.options[teachers.selectedIndex].text;      
+      
+      var courseval = courses.options[courses.selectedIndex].value;
+      //var teacherval = teachers.options[teachers.selectedIndex].value;
+      
+    var x = document.getElementById("courseandteacher");
+    var option = document.createElement("option");
+    option.text = course;
+    option.value = courseval;
+    x.add(option);
+        courses.remove(courses.selectedIndex);
+    
+    }
+    
+    function removevalues(){
+            var x = document.getElementById("courseandteacher");
+          
+            var course = x.options[x.selectedIndex].text;
+            
+            var target = document.getElementById('courses');
+            var option = document.createElement("option");
+            option.value = course;
+            option.text = course;
+            target.add(option);
+      x.remove(x.selectedIndex);
+    
+    }
+
+  function pushvalues(){
+    var courseandteacher = document.getElementById('courseandteacher');
+    var values = new Array();
+  
+    for(var i=0; i < courseandteacher.options.length; i++){
+      values.push(courseandteacher.options[i].value);
+    }
+   document.getElementById("valueset").value = values;
+  }
+    
+    
+var showOnlyOptionsSimilarToText = function (selectionEl, str, isCaseSensitive) {
+    if (typeof isCaseSensitive == 'undefined')
+        isCaseSensitive = true;
+    if (isCaseSensitive)
+        str = str.toLowerCase();
+
+    var $el = $(selectionEl);
+
+    $el.children("option:selected").removeAttr('selected');
+    $el.val('');
+    $el.children("option").hide();
+
+    $el.children("option").filter(function () {
+        var text = $(this).text();
+        if (isCaseSensitive)
+            text = text.toLowerCase();
+
+        if (text.indexOf(str) > -1)
+            return true;
+
+        return false;
+    }).show();
+
+};
+
+
+  </script>
+
+
+
 @section('content')
-  <div class="container">
+
+<div class="container">
     <div class="row">
-      <div class="col-lg-10">
-        <h3>Edit Course</h3>
+      <div class="col-md-6">
+        <h3>Update Course Offering</h3>
       </div>
     </div>
-<div>
+
     @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
@@ -16,71 +93,61 @@
         </ul>
       </div><br />
     @endif
-    <div class="col-md-6">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Input Course Data</h3>
-          </div>
-       <form action="{{route('courses.update',$course->id)}}" method="post">
+    
+
+      <form action="{{route('course_offerings.update',$courseOffering->id)}}" method="post">
       @csrf
-      @method('PUT')
       
-             <div class="box-body">
-                <div class="form-group">
-                  <label for="course_name">Course Name</label>
-                  <input type="text" class="form-control" id="course_name" placeholder="Enter Course Name" name="course_name" value="{{$course->course_name}}">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Course Code</label>
-                  <input type="text" class="form-control" placeholder="Course Code" id="exampleInputPassword1" name="course_code" value="{{$course->course_code}}">
-                </div>
-                
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Credit Hours</label>
-                  <input type="number" class="form-control" placeholder="Credit Hours" id="exampleInputPassword1" name="credit_hours" value="{{$course->credit_hours}}">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Course Fee</label>
-                  <input type="number" class="form-control" placeholder="Fee" id="exampleInputPassword1" name="course_fee" value="{{$course->course_fee}}">
-                </div>
-                <div class="form-group">
-                      <label for="exampleInputPassword1">Prerequisite</label>
-                      <select class="form-control" name="prerequisite_id">
-                      <option value="{{$course->prerequisite['id']}}">{{$course->prerequisite['course_name']}}</option>
-                      <option value="null">Select</option>
-                          <?php 
-                          use App\Course;
-                          $courses= Course::all(); ?>
-                       
-                        @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->course_name}}</option>
-                        @endforeach
-                      </select>
-                    </div>
+        <div class="col-md-3">
+          <div class="box-header with-border">
+              <h3 class="box-title">Shift courses to right panel</h3>
+          </div>
+          <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="batch_id" value="{{$courseOffering->batch_id}}" />
+          <input type="hidden" name="semester_id" value="{{$courseOffering->semester_id}}" />
+          <input type="hidden" name="department_id" value="{{$courseOffering->department_id}}" />
+          <input type="hidden" name="due_date" value="{{$courseOffering->due_date}}" />
+          <input type="hidden" name="end_date" value="{{$courseOffering->end_date}}" />
+          <input type="hidden" name="status" value="submit" />
+          <div class="form-group">
+            <input type="text"  class="form-control input-sm" placeholder="Search course here" id="coursesrc" name="coursesrc">
+            <select class="form-control input-sm" id="courses" name="courses" multiple style="height:380px">
+              
+                @foreach($courses as $course)
+                  <option value="{{$course->id}}">{{$course->course_name}}</option>
+                @endforeach
+              
+            </select>
+          </div>
+      </div>
+     
+              
 
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Department</label>
-                      <select class="form-control" name="department_id">
-                        <option value="{{$course->department->id}}">{{$course->department->department_code}}</option>
-                        
-                        <?php 
-                          use App\Department;
-                          $departments= Department::all(); ?>
-                        @foreach($departments as $department)
-                        <option value="{{$department->id}}">{{$department->department_code}}</option>
-                        @endforeach
-                      </select>
-                    </div>
 
-              </div>
-              <!-- /.box-body -->
+    <div class="col-md-1" style="height:10px;">
 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </div>
+          <span style="position:absolute; top:100px;"><a href="#" onclick="movevalues()"><i class="fa fa-fw fa-chevron-right"></i></a></span>
+          <span style="position:absolute; top:135px; bottom:0px;"><a href="#" onclick="removevalues()"><i class="fa fa-fw fa-chevron-left"></i></a></span>
+    </div>
+    <div class="col-md-3"> 
+      <div class="box-header with-border">
+              <h3 class="box-title">Selected Courses</h3>
+          </div>
+         <div class="form-group">
+          <select class="form-control input-sm" id="courseandteacher" name="courseandteacher" multiple style="height:380px">
+          @foreach ($courseOffering->courses as $course)
+            <option value="{{$course->id}}">{{$course->course_name}}</option>
+                @endforeach
+          </select>
+        </div>
+    <input type="hidden" name="valueset" id="valueset" />
+    <div class="box-footer">
+                <span style="float:right;"><button type="submit" name="save" onclick="pushvalues()" class="btn btn-primary">Save</button></span>
+    </div>
+    
+  </div>
+
     </form>
-  </div>
-</div>
-  </div>
+    </div>
+    </div>
 @endsection
