@@ -20,7 +20,7 @@ class CourseOfferingController extends Controller
      */
     public function index()
     {
-          $courseOfferings = CourseOffering::latest()->with('courses')->orderBy('batch_id')->paginate(15);
+        $courseOfferings = CourseOffering::latest()->with('courses')->orderBy('batch_id')->paginate(15);
         return view('course_offerings.index', compact('courseOfferings'))
         ->with('i', (request()->input('page', 1) -1 )*15);
         
@@ -36,8 +36,9 @@ class CourseOfferingController extends Controller
         
             $semesters = Semester::all();
             $departments = Department::all();
-            $batches = Batch::all();
-            return view('course_offerings.create', compact('departments'))->with('semesters', $semesters)->with('batches', $batches);
+            $batches = Batch::where('end_year', '>=', date('Y'))->get();
+            
+           return view('course_offerings.create', compact('departments'))->with('semesters', $semesters)->with('batches', $batches);
         
     }
 
@@ -52,7 +53,7 @@ class CourseOfferingController extends Controller
      */
     public function store(Request $request)
     {
-        echo $request->get('status');
+        
        if($request->get('status') === 'selection'){
             $data = [
             'semester_id' => $request->get('semester_id'),
@@ -157,6 +158,8 @@ class CourseOfferingController extends Controller
      */
     public function destroy(CourseOffering $courseOffering)
     {
+        $oldCourses = $courseOffering->courses;
+        $courseOffering->courses()->detach($oldCourses);
         $courseOffering->delete();
         return redirect()->route('course_offerings.index')
                       ->with('success', 'Course deleted successfully');

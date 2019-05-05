@@ -34,4 +34,15 @@ class Course extends Model
     public function courseOfferings(){
             return $this->belongsToMany( 'App\CourseOffering', 'courses_course_offering', 'course_id', 'course_offering_id' );
     }
+
+    public function instructorLoad(){
+            return $this->belongsToMany( 'App\InstructorLoad', 'instructor_load_courses')->withPivot('section_id');
+    }
+
+ 
+
+    public function sections()
+    {
+        return $this->belongsToMany('App\Section', 'instructor_load_courses')->withPivot('instructor_load_id');
+    }
 }

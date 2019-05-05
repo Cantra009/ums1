@@ -54,7 +54,7 @@
                       <select class="form-control" name="semester_id">
                         
                         @foreach($semesters as $semester)
-                        <option value="{{$semester->id}}">{{$semester->semester_name}}</option>
+                        <option value="{{$semester->id}}">{{$semester->semester_name}} in {{$semester->academic_year}}</option>
                         @endforeach
                       </select>
                     </div>

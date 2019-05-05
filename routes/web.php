@@ -52,4 +52,5 @@ Route::resource('instructors', 'InstructorController')->middleware('auth');
 Route::resource('sections', 'SectionController')->middleware('auth');
 Route::resource('semesters', 'SemesterController')->middleware('auth');
 Route::resource('course_offerings', 'CourseOfferingController')->middleware('auth');
+Route::resource('instructor_loads', 'InstructorLoadController')->middleware('auth');
 

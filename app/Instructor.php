@@ -20,4 +20,10 @@ class Instructor extends Model
     public function department(){
         return $this->belongsTo('App\Department');
     }
+
+    public function instructorLoad(){
+            return $this->hasMany('App\instructorLoad');
+    }
+
+    
 }

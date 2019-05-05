@@ -33,6 +33,15 @@ class Section extends Model
     }
 
 
+    public function instructorLoad(){
+            return $this->belongsToMany( 'App\InstructorLoad', 'instructor_load_courses')->withPivot('course_id');
+    }
+
+    public function courses(){
+            return $this->belongsToMany( 'App\Course', 'instructor_load_courses')->withPivot('instructor_load_id');
+    }
+
+  
 
 }
 
