@@ -1,6 +1,13 @@
 @extends('adminlte::page')
 @section('content')
 
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('.data-table').dataTable();
+        });
+    </script>
+@stop
 <div class="container">
     <div class="row">
       <div class="col-md-7">
@@ -23,7 +30,8 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Student List</h3>
-
+              <form action="{{ route('students.index') }}"  role="search">
+            
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -32,12 +40,13 @@
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
-              </div>
+              </div>  
+            </form>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tbody><tr>
+              <table class="data-table">
+                <thead><tr>
 			       <th >No.</th>
 			       <td>Name</td>
              <td>ID No</td>
@@ -51,11 +60,11 @@
              <td>Status</td>
              <td>Photo</td>
 			       <th>Action</th>
-     			</tr>
+     			</tr></thead>
  
 
       			@foreach ($students as $student)
-        		<tr>
+        		<tbody><tr>
 		          <td><b>{{++$i}}.</b></td>
 		          <td>{{$student->full_name}}</td>
 		          <td>{{$student->id_no}}</td>
@@ -79,7 +88,7 @@
 		              <button type="submit" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></button>
 		            </form>
 		          </td>
-        		</tr>
+        		</tr></tbody>
      		 @endforeach
               </tbody></table>
               <div class="box-footer">

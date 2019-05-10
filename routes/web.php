@@ -1,5 +1,6 @@
 <?php
-
+use App\Student;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,4 +54,6 @@ Route::resource('sections', 'SectionController')->middleware('auth');
 Route::resource('semesters', 'SemesterController')->middleware('auth');
 Route::resource('course_offerings', 'CourseOfferingController')->middleware('auth');
 Route::resource('instructor_loads', 'InstructorLoadController')->middleware('auth');
+Route::resource('dismissed_students', 'DismissedStudentController')->middleware('auth');
+
 

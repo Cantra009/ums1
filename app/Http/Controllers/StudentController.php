@@ -15,7 +15,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students= Student::latest()->paginate(5);
+        $keyword=  \Request::get('table_search');
+        
+        $students = Student::where('full_name', 'like', '%'.$keyword.'%' )->orWhere('id_no', 'like', '%'.$keyword.'%')->paginate(20);
         return view('students.index', compact('students'))
         ->with('i', (request()->input('page', 1) -1 )*15);
     }
@@ -100,7 +102,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        
+        return view('students.detail', compact('student'));
     }
 
     /**
