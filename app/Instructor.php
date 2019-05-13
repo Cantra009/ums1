@@ -14,7 +14,8 @@ class Instructor extends Model
         'phone',
         'title',
         'qualification',
-        'department_id'       
+        'department_id',
+        'user_id'        
     ];
 
     public function department(){

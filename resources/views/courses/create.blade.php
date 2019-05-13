@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Course Fee</label>
-                  <input type="number" class="form-control" placeholder="Fee" id="exampleInputPassword1" name="course_fee" >
+                  <input type="decimal" class="form-control" placeholder="Fee" id="exampleInputPassword1" name="course_fee" >
                 </div>
                 <div class="form-group">
                       <label for="exampleInputPassword1">Prerequisite</label>
@@ -57,7 +57,12 @@
                         <option value="0">None</option>
                       </select>
                     </div>
-
+                    <div class="radio">
+                    <label>
+                      <input type="radio" name="major" id="major" value="1">
+                      Major
+                    </label>
+                  </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Department</label>
                       <select class="form-control" name="department_id">

@@ -55,5 +55,6 @@ Route::resource('semesters', 'SemesterController')->middleware('auth');
 Route::resource('course_offerings', 'CourseOfferingController')->middleware('auth');
 Route::resource('instructor_loads', 'InstructorLoadController')->middleware('auth');
 Route::resource('dismissed_students', 'DismissedStudentController')->middleware('auth');
+Route::resource('semester_registration', 'SemesterRegistrationController')->middleware('auth');
 
 

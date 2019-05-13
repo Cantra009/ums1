@@ -18,7 +18,7 @@ class DismissedStudentController extends Controller
     public function index()
     {
         
-         $dissmissedStudents = DismissedStudent::latest()->paginate(15);
+        $dissmissedStudents = DismissedStudent::latest()->paginate(15);
         return view('dismissed_students.index', compact('dissmissedStudents'))
         ->with('i', (request()->input('page', 1) -1 )*15);
         

@@ -8,7 +8,8 @@ class Campus extends Model
 {
     protected $fillable = [
         'name',
-        'address'       
+        'address',
+        'user_id'        
     ];
     
     public function classrooms(){

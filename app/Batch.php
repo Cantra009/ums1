@@ -9,7 +9,8 @@ class Batch extends Model
      protected $fillable = [
         'name',
         'start_year',
-        'end_year'       
+        'end_year'  ,
+        'user_id'      
     ];
 
     public function students(){

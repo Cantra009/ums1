@@ -11,7 +11,8 @@ class Section extends Model
         'shift',
         'department_id',
         'batch_id',
-        'classroom_id'    
+        'classroom_id',
+        'user_id'     
     ];
 
     public function department(){

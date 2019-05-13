@@ -55,12 +55,13 @@ class CourseController extends Controller
             'credit_hours'  => $request->get('credit_hours'),
             'course_fee'    => $request->get('course_fee'),  
             'prerequisite_id'  => $request->get('prerequisite_id'), 
-            'department_id' => $request->get('department_id'),   
+            'department_id' => $request->get('department_id'), 
+            'major'            => $request->get('major'),   
             'user_id'       => Auth::id(),
         ]);
 
-        //echo Auth::id();
-        Course::create($request->all());
+       
+        $course->save();
         return redirect()->route('courses.index')
                        ->with('success', 'new course created successfully');
     }

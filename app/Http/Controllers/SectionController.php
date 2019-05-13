@@ -56,12 +56,12 @@ class SectionController extends Controller
             'section_name'   => $request->get('section_name'),
             'shift'          => $request->get('shift'),  
             'department_id'  => $request->get('department_id'),  
-            'batch_id'          => $request->get('shift'),  
-            'classroom_id'  => $request->get('department_id'),  
+            'batch_id'          => $request->get('batch_id'),  
+            'classroom_id'  => $request->get('classroom_id'),  
             'user_id'        => Auth::id(),
         ]);
 
-        Section::create($request->all());
+        $section->save($request->all());
         return redirect()->route('sections.index')
                        ->with('success', 'New Section is created successfully');
     }

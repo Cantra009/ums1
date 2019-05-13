@@ -55,7 +55,7 @@ class ClassroomController extends Controller
             'user_id'        => Auth::id(),
         ]);
 
-        Classroom::create($request->all());
+        $classroom->save();
         return redirect()->route('classrooms.index')
                        ->with('success', 'New classroom is created successfully');
     }

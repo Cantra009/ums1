@@ -75,11 +75,17 @@
             <table class="table table-striped">
             <tr><th><form action="{{route('dismissed_students.create')}}">
               <input type="hidden" name="student_id" value="{{$student->id}}">
-              <button type="submit" class="btn btn-default"><i class="fa fa-user-alt-slash"></i></button>
+              <button type="submit" class="btn btn-default"><i class="fa fa-user-slash"></i>Dismiss</button>
             </form>
               </th></tr>
             <tr><th>Withdraw / Readmit</th></tr>
-            <tr><th>Print Registration Slip</th></tr>
+            <tr><th>
+                    <form action="{{route('semester_registration.create')}}">
+                    <input type="hidden" name="student_id" value="{{$student->id}}">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-user-slash"></i>Sem. Registration</button>
+                  </form>
+
+            </th></tr>
             <tr><th>Print GPA Report</th></tr>
             <tr><th>Excempt Courses</th></tr>
             </table>

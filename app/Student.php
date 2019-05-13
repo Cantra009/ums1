@@ -20,7 +20,8 @@ class Student extends Model
         'section_id', 
         'batch_id', 
         'scholarship',
-        'status'  ,   
+        'status'  ,
+        'user_id'    
     ];
 
      public function department(){

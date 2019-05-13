@@ -22,15 +22,14 @@ class CreateInstructorsTable extends Migration
             $table->string('title');
             $table->integer('phone');
             $table->string('type');
-            
+            $table->integer('user_id')->unsigned();
+            $table->bigInteger('department_id')->unsigned();
+            $table->foreign('department_id')->references('id')->on('departments');
             
             $table->timestamps();
         });
 
-        Schema::table('instructors', function ($table) {
-            //$table->foreign('department_id')->references('id')->on('departments');
-        });
-
+        
     }
 
     /**

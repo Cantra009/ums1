@@ -22,6 +22,7 @@ class CreateSemestersTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->bigInteger('batch_id')->unsigned()->nullable();
 
 
         });

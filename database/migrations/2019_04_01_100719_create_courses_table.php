@@ -22,6 +22,7 @@ class CreateCoursesTable extends Migration
             $table->bigInteger('prerequisite_id')->unsigned();
             $table->bigInteger('department_id')->unsigned();
             $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->enum('major', ['1', '0'])->default('1');
             $table->timestamps();
         });
     }

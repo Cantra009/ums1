@@ -11,16 +11,22 @@ class Semester extends Model
         'academic_year',
         'start_date',
         'end_date',
+        'batch_id',
         'description',
+        'user_id' 
             
     ];
 
     public function students(){
-			return $this->hasMany('App\Student');
+			return $this->hasManyThrough('App\Student', 'App\SemesterRegestration');
     }
 
     public function courses(){
-			return $this->hasMany('App\Course');
+            return $this->hasManyThrough('App\Course', 'App\CourseOffering');
+    }
+
+    public function batch(){
+			return $this->belongsTo('App\Batch');
     }
 
     public function coursesOfferings(){

@@ -51,11 +51,12 @@ class SemesterController extends Controller
             'academic_year'   => $request->get('academic_year'),  
             'start_date'      => $request->get('start_date'),  
             'end_date'        => $request->get('end_date'),  
+            'batch_id'        => $request->get('batch_id'),
             'description'     => $request->get('description'),  
             'user_id'         => Auth::id(),
         ]);
 
-        Semester::create($request->all());
+        $semester->save();
         return redirect()->route('semesters.index')
                        ->with('success', 'New Semester is created successfully');
 

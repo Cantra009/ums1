@@ -66,7 +66,7 @@ class InstructorController extends Controller
         ]);
 
         //echo Auth::id();
-        Instructor::create($request->all());
+        $instructor->save();
         return redirect()->route('instructors.index')
                        ->with('success', 'new instructor created successfully');
     }

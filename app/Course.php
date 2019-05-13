@@ -12,7 +12,9 @@ class Course extends Model
         'credit_hours',
         'course_fee',
         'prerequisite_id',
-        'department_id',       
+        'department_id',
+         'major',  
+        'user_id'      
     ];
 
     public function department(){

@@ -53,8 +53,8 @@ class BatchController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        echo Auth::id();
-        Batch::create($request->all());
+        
+        $batch->save();
         return redirect()->route('batches.index')
                        ->with('success', 'new batch created successfully');
     }

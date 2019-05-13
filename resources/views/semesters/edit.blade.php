@@ -56,6 +56,20 @@
                           <input type="text" class="form-control pull-right" id="datepicker" name="end_date" value="{{$semester->end_date}}">
                         </div>
                       <!-- /.input group -->
+                      <div class="form-group">
+                  <label for="exampleInputPassword1">Batch</label>
+                  <select class="form-control"  id="exampleInputPassword1" name='department_id'>
+                    <option value="{{$semester->batch_id}}">{{$semester->batch->batch_name}}</option>
+                    <?php 
+                     use App\Batch;
+                     $batches= Batch::all(); ?>
+                    <option>Select one</option>
+                    @foreach($batches as $batch)
+                     <option value="{{$batch->id}}">{{$batch->batch_name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+
                     </div
                     <div class="form-group">
                       <label for="exampleInputPassword1">Description</label>

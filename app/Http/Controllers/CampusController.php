@@ -50,8 +50,8 @@ class CampusController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        echo Auth::id();
-        Campus::create($request->all());
+       
+        $campus->save();
         return redirect()->route('campuses.index')
                        ->with('success', 'new campus created successfully');
     }

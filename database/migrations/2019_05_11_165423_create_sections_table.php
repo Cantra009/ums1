@@ -17,18 +17,15 @@ class CreateSectionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('section_name');
             $table->string('shift');
+            $table->bigInteger('classroom_id')->unsigned();
             $table->integer('department_id')->unsigned();
             $table->integer('batch_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
             
         });
 
-        Schema::table('sections', function ( $table) {
-            //$table->foreign('department_id')->references('id')->on('departments');
-             
-            //$table->foreign('batch_id')->references('id')->on('batches');
-            
-        });
+        
     }
 
     /**

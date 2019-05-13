@@ -9,7 +9,8 @@ class Faculty extends Model
      protected $fillable = [
         'name',
         'level',
-        'description'       
+        'description',
+        'user_id'        
     ];
 
     public function departments(){

@@ -30,7 +30,7 @@
                   <div class="box-body">
                     <div class="form-group">
                       <label for="campus_name">Semester Name</label>
-                      <input type="text" class="form-control" id="section_name" placeholder="Enter Section Name" name="semester_name">
+                      <input type="text" class="form-control" id="section_name" placeholder="Semester Name" name="semester_name">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Academic Year</label>
@@ -58,7 +58,19 @@
                         </div>
                       <!-- /.input group -->
                     </div>
-
+                    <div class="form-group">
+                  <label for="exampleInputPassword1">Batch</label>
+                  <select class="form-control"  id="exampleInputPassword1" name='batch_id'>
+                    <option>Select one</option>
+                    <?php 
+                      use App\Batch;
+                      $batches = Batch::all();
+                    ?>
+                    @foreach($batches as $batch)
+                     <option value="{{$batch->id}}">{{$batch->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Description</label>
                       <input type="text" class="form-control" name="description"  placeholder="Enter Description">

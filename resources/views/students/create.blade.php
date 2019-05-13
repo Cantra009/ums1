@@ -33,7 +33,7 @@
   
                 <div class="form-group">
                   <label for="name">Student Full Name: </label>
-                  <input type="text" class="form-control" id="full_name" placeholder="Enter Instructor Name" name="full_name">
+                  <input type="text" class="form-control" id="full_name" placeholder="Student Name" name="full_name">
 
                   <label for="name">ID No: </label>
                   <input type="text" class="form-control" id="full_name" placeholder="Enter Instructor Name" name="id_no">
@@ -61,15 +61,18 @@
                   </div>
                   <input type="date" class="form-control pull-right" id="datepicker" name="dob">
                 </div>
-                
+                <div class="form-group">
+                  <label for="phone"> Phone: </label>
+                  <input type="phone" class="form-control" placeholder="Phone" id="phone" name="phone" >
+                </div>
               </div>
                 <div class="form-group">
                   <label for="email">Parent Name: </label>
-                  <input type="name" class="form-control" placeholder="Email" id="email" name="parent_name" >
+                  <input type="name" class="form-control" placeholder="Parent Name" id="email" name="parent_name" >
                 </div>
                 <div class="form-group">
                   <label for="phone">Parent Phone: </label>
-                  <input type="phone" class="form-control" placeholder="Phone" id="phone" name="parent_phone" >
+                  <input type="phone" class="form-control" placeholder="Parent Phone" id="phone" name="parent_phone" >
                 </div>
                
               </div>

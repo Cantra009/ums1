@@ -9,7 +9,8 @@ class Classroom extends Model
     protected $fillable = [
         'room_label',
         'dimensions',
-        'campus_id'       
+        'campus_id',
+        'user_id'        
     ];
 
     public function campus(){

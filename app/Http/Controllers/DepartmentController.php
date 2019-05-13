@@ -56,7 +56,7 @@ class DepartmentController extends Controller
         ]);
 
         //echo Auth::id();
-        Department::create($request->all());
+        $department->save($request->all());
         return redirect()->route('departments.index')
                        ->with('success', 'new department created successfully');
     }

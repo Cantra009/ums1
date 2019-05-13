@@ -53,7 +53,7 @@ class FacultyController extends Controller
         ]);
 
         //echo Auth::id();
-        Faculty::create($request->all());
+        $faculty->save();
         return redirect()->route('faculties.index')
                        ->with('success', 'New faculty is created successfully');
         

@@ -61,8 +61,11 @@ class StudentController extends Controller
        
         $fileName = $this->getFileName($request->photo, $request->get('id_no'));
         $request->photo->move(base_path('public/storage/photos'), $fileName);
-        echo $fileName;
         
+        if($request->get('scholarship') ==='1'){
+            $scholarship = '1';
+        }else
+        $scholarship = '0';
         $student = new Student([
 
             'full_name'     => $request->get('full_name'),
@@ -74,17 +77,19 @@ class StudentController extends Controller
             'shift'         => $request->get('shift'),
             'department_id' => $request->get('department_id'),  
             'batch_id'      => $request->get('batch_id'),  
-            'section_id'    => $request->get('section_id'),  
-            'scholarship'   => $request->get('scholarship'),  
+            'section_id'    => $request->get('section_id'), 
+            'dob'    => $request->get('dob'), 
+            'phone'    => $request->get('phone'),  
+            'scholarship'   => $scholarship,  
             
             'user_id'       => Auth::id(),
 
             
         ]);
 
-        Student::create($request->all());
-        //return redirect()->route('students.index')
-            //           ->with('success', 'New student is created successfully');
+        $student->save();
+        return redirect()->route('students.index')
+                       ->with('success', 'New student is created successfully');
 
     }
 
