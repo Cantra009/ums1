@@ -29,7 +29,7 @@
                   </div>
                   <!-- /.box-header -->
                   <!-- form start -->
-                  <form action="{{route('semester_registration.store')}}" method="post">
+                  <form action="{{route('semester_registration.store')}}" method="post" name="register">
                   @csrf
                     <div class="box-body">
                       <input type="hidden" name="student_id" value="{{$student->id}}">
@@ -78,7 +78,7 @@
                        <input type="hidden" name="fee" value="{{$fee +=$course->course_fee}}">
                        
                       <td>
-                      <a onclick="drop(this, {{$course->course_fee}})"> Drop</a>
+                      <a onclick="drop(this, {{$course->course_fee}}, {{$course->id}})"> Drop</a>
                       </td>
                       </div>
                   </tr>
@@ -89,6 +89,7 @@
                     </div>
                     <!-- /.box-body -->
                     <input type="hidden" name="droped_course_fee" id="droped_course_fee">
+                    <input type="hidden" name="droped_courses_id" id="dropedIcoursesId">
                     <div class="box-footer">
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -98,10 +99,30 @@
             </div>
           </div>
 <script>
-function drop( r, fee) {
+function drop( r, fee, id) {
+  var new_ids;
   var i = r.parentNode.parentNode.rowIndex;
-  var d_fee = document.getElementById("droped_course_fee");
-  d_fee.value = fee;
+  var d_text = document.getElementById("droped_course_fee");
+  var d_value = d_text.value;
+  if(d_value=='')
+    d_value = 0;
+   var new_fee = parseFloat(fee) +parseFloat(d_value);
+  console.log('old fee' + d_value);
+  console.log("new fee"+ new_fee);
+   d_text.value = new_fee;
+
+   var d_Id_text = document.getElementById("dropedIcoursesId");
+  var old_Id_value = d_Id_text.value;
+  if(old_Id_value==''){
+      new_ids = id;
+    d_Id_text.value = new_ids;
+  }
+  else{
+    var new_ids= old_Id_value + ',' + id
+    d_Id_text.value = new_ids;
+  }
+  console.log('old fee' + old_Id_value);
+  console.log("new id"+ new_ids);
   document.getElementById("registration").deleteRow(i);
   
 

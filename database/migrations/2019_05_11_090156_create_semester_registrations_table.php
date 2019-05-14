@@ -17,8 +17,6 @@ class CreateSemesterRegistrationsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
-             $table->bigInteger('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses');
             $table->bigInteger('semester_id')->unsigned();
             $table->foreign('semester_id')->references('id')->on('semesters');
             $table->bigInteger('user_id')->unsigned();

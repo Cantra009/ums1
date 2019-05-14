@@ -22,8 +22,17 @@ class SemesterRegistration extends Model
     	return $this->belongsTo('App\Student');
     }
 
-     public function courseOffering(){
+    public function courseOffering(){
     	return $this->belongsTo('App\CourseOffering');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany( 'App\Course', 'semester_registration_courses', 'semester_registration_id', 'course_id' );
+    }
+
+    public function dropedCourses(){
+        return $this->hasMany('App\DropedCourse');
     }
 
 }

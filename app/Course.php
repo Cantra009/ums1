@@ -47,4 +47,12 @@ class Course extends Model
     {
         return $this->belongsToMany('App\Section', 'instructor_load_courses')->withPivot('instructor_load_id');
     }
+
+    public function semesterRegistrations(){
+            return $this->belongsToMany( 'App\SemesterRegistration', 'semester_registration_courses', 'course_id', 'semester_registration_id' );
+    }
+
+    public function dropedCourses(){
+            return $this->belongsToMany( 'App\DropedCourse', 'droped_courses_courses', 'course_id', 'droped_course_id' );
+    }
 }

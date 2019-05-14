@@ -67,7 +67,7 @@
                 <td>{{$semesterRegistration->student->full_name}}</td>
                 <td>{{$semesterRegistration->student->id_no}}</td>
                 <td>{{$semesterRegistration->created_at}}</td>
-                <td>{{count($semesterRegistration->courseOffering->courses()->get())}}</td>
+                <td>{{count($semesterRegistration->courses()->get())}} out of {{count($semesterRegistration->courseOffering->courses()->get())}}</td>
                  <td>{{$semesterRegistration->status}}</td>
                 <td>
                 <form action="{{ route('semester_registration.destroy', $semesterRegistration->id) }}" method="post">

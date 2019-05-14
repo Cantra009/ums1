@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Student;
 use App\Semester;
 use App\CourseOffering;
+use App\DropedCourse;
 use App\Payment;
 use Auth;
 class SemesterRegistrationController extends Controller
@@ -18,7 +19,7 @@ class SemesterRegistrationController extends Controller
      */
     public function index()
     {
-         $semesterRegistrations = SemesterRegistration::latest()->paginate(15);
+         $semesterRegistrations = SemesterRegistration::latest()->with('courses')->paginate(15);
         return view('semester_registration.index', compact('semesterRegistrations'))
         ->with('i', (request()->input('page', 1) -1 )*15);
         
@@ -56,10 +57,14 @@ class SemesterRegistrationController extends Controller
             
             
         ]);
+         $droped_courses = explode(',', $request->get('droped_courses_id'));
          $courses = explode(',', $request->get('courses'));
          foreach( $courses as $course)
             if ($course !== '')
-                $courseIds[] = $course;
+                if(!in_array($course, $droped_courses))
+                    $courseIds[] = $course;
+
+        
             
         if($request->get('status')){
             $status = 'Late';
@@ -75,11 +80,13 @@ class SemesterRegistrationController extends Controller
         if($request->get('droped_course_fee') !=='')
         {
             $deduction = $request->get('droped_course_fee');
+            $remark .=" and drop course(s) deducted. ";
         } 
         else
         {
             $deduction = 0.0;
         }
+        
         $credit = $request->get('fee');
 
         // check if record exists
@@ -121,8 +128,21 @@ class SemesterRegistrationController extends Controller
                 'user_id'         => Auth::id(),
             ]);
 
-            echo $payment;
+            
+            
             $semesterRegistration->save();
+            $semesterRegistration->courses()->attach($courseIds);
+            $id = $semesterRegistration->id;
+
+            if(!empty($droped_courses)){
+                $dropedCourse = new DropedCourse([
+                'semester_registration_id'    =>   $id,
+                'user_id'         => Auth::id(),
+            ]);
+            }
+            
+            $dropedCourse->save();
+            $dropedCourse->courses()->attach($droped_courses);
             $payment->save();
             return redirect()->route('semester_registration.index')
                         ->with('success', 'Student registered');
