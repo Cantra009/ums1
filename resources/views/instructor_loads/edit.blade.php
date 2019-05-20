@@ -95,7 +95,7 @@ var showOnlyOptionsSimilarToText = function (selectionEl, str, isCaseSensitive) 
     @endif
     
 
-      <form action="{{route('course_offerings.update',$courseOffering->id)}}" method="post">
+      <form action="{{route('instructor_loads.update',$instructorLoad->id)}}" method="post">
       @csrf
       
         <div class="col-md-3">
@@ -103,17 +103,17 @@ var showOnlyOptionsSimilarToText = function (selectionEl, str, isCaseSensitive) 
               <h3 class="box-title">Shift courses to right panel</h3>
           </div>
           <input type="hidden" name="_method" value="PUT">
-          <input type="hidden" name="batch_id" value="{{$courseOffering->batch_id}}" />
-          <input type="hidden" name="semester_id" value="{{$courseOffering->semester_id}}" />
-          <input type="hidden" name="department_id" value="{{$courseOffering->department_id}}" />
-          <input type="hidden" name="due_date" value="{{$courseOffering->due_date}}" />
-          <input type="hidden" name="end_date" value="{{$courseOffering->end_date}}" />
+          <input type="hidden" name="batch_id" value="{{$instructorLoad->batch_id}}" />
+          <input type="hidden" name="semester_id" value="{{$instructorLoad->semester_id}}" />
+          <input type="hidden" name="department_id" value="{{$instructorLoad->department_id}}" />
+          <input type="hidden" name="due_date" value="{{$instructorLoad->due_date}}" />
+          <input type="hidden" name="end_date" value="{{$instructorLoad->end_date}}" />
           <input type="hidden" name="status" value="submit" />
           <div class="form-group">
             <input type="text"  class="form-control input-sm" placeholder="Search course here" id="coursesrc" name="coursesrc">
             <select class="form-control input-sm" id="courses" name="courses" multiple style="height:380px">
               
-                @foreach($courses as $course)
+                @foreach(instructorLoad->courses->  all() as $course)
                   <option value="{{$course->id}}">{{$course->course_name}}</option>
                 @endforeach
               

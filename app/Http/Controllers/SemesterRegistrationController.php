@@ -162,7 +162,7 @@ class SemesterRegistrationController extends Controller
      */
     public function show(SemesterRegistration $semesterRegistration)
     {
-        //
+        return view('semester_registration.detail', compact('semesterRegistration'));
     }
 
     /**
@@ -173,7 +173,7 @@ class SemesterRegistrationController extends Controller
      */
     public function edit(SemesterRegistration $semesterRegistration)
     {
-        //
+        return view('semester_registration.edit', compact('semesterRegistration'));
     }
 
     /**

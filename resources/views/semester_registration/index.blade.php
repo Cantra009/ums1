@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h3>Departments</h3>
+        <h3>Semester Registration</h3>
       </div>
       <div class="col-sm-2">
         <a class="btn btn-sm btn-info" href="{{ route('students.index') }}">Submit New</a>
@@ -15,6 +15,11 @@
 
     @if ($message = Session::get('success'))
       <div class="alert alert-success">
+        <p>{{$message}}</p>
+      </div>
+    @endif
+    @if ($message = Session::get('warning'))
+      <div class="alert alert-warning">
         <p>{{$message}}</p>
       </div>
     @endif
@@ -74,7 +79,7 @@
                   <a class="abel label-success" href="{{route('semester_registration.show',$semesterRegistration->id)}}"> <span class="glyphicon glyphicon-eye-open"></span><a>
 
 
-                  <a class="abel label-warning" href="{{route('course_offerings.edit',$semesterRegistration->id)}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <a class="abel label-warning" href="{{route('semester_registration.edit',$semesterRegistration->id)}}"><span class="glyphicon glyphicon-pencil"></span></a>
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="label label-danger"><span class="glyphicon glyphicon-trash"></span></button>

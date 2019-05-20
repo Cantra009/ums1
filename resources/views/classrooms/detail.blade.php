@@ -10,17 +10,17 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <strong>Batch Name: </strong> {{$batch->name}}
+          <strong>Room Label: </strong> {{$classroom->room_label}}
         </div>
       </div>
       <div class="col-md-12">
         <div class="form-group">
-          <strong>Start Year: </strong> {{$batch->start_year}}
+          <strong>Dimensions: </strong> {{$classroom->dimensions}}
         </div>
       </div>
       <div class="col-md-12">
         <div class="form-group">
-          <strong>End Year: </strong> {{$batch->end_year}}
+          <strong>Campus: </strong> {{$classroom->campus->name}}
         </div>
       </div>
       <div class="col-md-12">

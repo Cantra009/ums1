@@ -70,7 +70,7 @@ class SemesterController extends Controller
      */
     public function show(Semester $semester)
     {
-        //
+        return view('semesters.detail', compact('semester'));
     }
 
     /**

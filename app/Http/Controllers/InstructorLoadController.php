@@ -102,9 +102,9 @@ class InstructorLoadController extends Controller
      * @param  \App\IntstructorLoad  $intstructorLoad
      * @return \Illuminate\Http\Response
      */
-    public function show(InstructorLoad $intstructorLoad)
+    public function show(InstructorLoad $instructorLoad)
     {
-        //
+        return view('instructor_loads.detail', compact('instructorLoad'));
     }
 
     /**
@@ -113,9 +113,9 @@ class InstructorLoadController extends Controller
      * @param  \App\IntstructorLoad  $intstructorLoad
      * @return \Illuminate\Http\Response
      */
-    public function edit(InstructorLoad $intstructorLoad)
+    public function edit(InstructorLoad $instructorLoad)
     {
-        //
+        return view('instructor_loads.edit', compact('instructorLoad'));
     }
 
     /**

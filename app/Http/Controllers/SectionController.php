@@ -74,7 +74,7 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        //
+        return view('sections.detail', compact('section'));
     }
 
     /**

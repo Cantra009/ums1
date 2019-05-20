@@ -20,43 +20,44 @@
       <div class="col-md-10">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Course Offering Details</h3>
+              <h3 class="box-title">Teacher Courses  Details</h3>
 
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tbody><tr>
-            
-             <th >Batch</th>
-             <th>Department</th>
-             <th>Semester</th>
-             <th>Registration Due date</th>
-             <th>Registration End date</th>
-             <th>Semester End Date</th>
-             
-          </tr>
-               
-            
-            <tr>
-              <td>{{$courseOffering->batch->name}}</td>
-              <td>{{$courseOffering->department->department_code}}</td>
-              <td>{{$courseOffering->semester->semester_name}}</td>
-              <td>{{$courseOffering->due_date}}</td>
-              <td>{{$courseOffering->end_date}}</td>
-              <td>{{$courseOffering->semester->end_date}}</td>
-              <td>
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tbody><tr>
                 
-              </td>
-            </tr>
-         
-              </tbody></table>
-              
+                <th >Teacher Name</th>
+                <th>Department</th>
+                <th>Semester</th>
+                <th>Batch</th>
+                <th>Semester End Date</th>
+                
+              </tr>
+                  
+                
+                <tr>
+                  <td>{{$instructorLoad->instructor->full_name}}</td>
+                  <td>{{$instructorLoad->instructor->department->department_code}}</td>
+                  <td>{{$instructorLoad->semester->semester_name}}</td>
+                  <td>{{$instructorLoad->semester->batch->name}}</td>
+                  <td>{{$instructorLoad->semester->end_date}}</td>
+                  <td>
+                    
+                  </td>
+                </tr>
+            
+                  </tbody></table>
+                  
+                </div>
+                <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
-        
+            </div>
+            </div>
 
-  
+            <div class="col-md-6">
+              
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Offered Courses</h3>
@@ -74,7 +75,7 @@
           </tr>
              
               
-            @foreach ($courses as $course)
+            @foreach ($instructorLoad->courses as $course)
             <tr>
               <td><b>{{++$i}}.</b></td>
               <td>{{$course['course_name']}}</td>
@@ -112,11 +113,6 @@
             <!-- /.box-body -->
           
         </div>
-  </div>
 </div>
-</div>
-<div >
-             <a href="{{route('course_offerings.index')}}" class="btn btn-sm btn-success">Back</a>
-          </div>
 </div>
 @endsection

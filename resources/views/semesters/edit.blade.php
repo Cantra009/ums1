@@ -65,7 +65,7 @@
                      $batches= Batch::all(); ?>
                     <option>Select one</option>
                     @foreach($batches as $batch)
-                     <option value="{{$batch->id}}">{{$batch->batch_name}}</option>
+                     <option value="{{$batch->id}}">{{$batch->name}}</option>
                     @endforeach
                   </select>
                 </div>

@@ -118,7 +118,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -130,7 +130,50 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $request->validate([
+            'full_name'      => 'required',
+            'id_no'          => 'required',
+            'dob'            => 'required',
+            'gender'         => 'required',
+            'parent_name'    => 'required',
+            'parent_phone'   => 'required',
+            'photo'          => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'department_id'  => 'required',
+            'shift'          => 'required',
+            'section_id'     => 'required', 
+            'batch_id'       => 'required', 
+
+            
+        ]);
+
+        
+
+       
+        $fileName = $this->getFileName($request->photo, $request->get('id_no'));
+        $request->photo->move(base_path('public/storage/photos'), $fileName);
+        
+       
+
+            $student->full_name    = $request->get('full_name');
+            $student->id_no        = $request->get('id_no');
+            $student->gender       = $request->get('gender');  
+            $student->parent_name   = $request->get('parent_name'); 
+            $student->parent_phone  = $request->get('parent_phone'); 
+            $student->photo         = $fileName;
+            $student->shift         = $request->get('shift');
+            $student->department_id = $request->get('department_id');  
+            $student->batch_id      = $request->get('batch_id');
+            $student->section_id   = $request->get('section_id');
+            $student->dob    = $request->get('dob'); 
+            $student->phone    = $request->get('phone'); 
+            $student->scholarship   = $request->get('scholarship'); 
+            
+            $student->user_id        = Auth::id();     
+
+            $student->save();
+            return redirect()->route('students.index')
+                      ->with('success', 'Student updated successfully');
+
     }
 
     /**

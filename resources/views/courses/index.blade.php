@@ -21,6 +21,27 @@
 
 		<div class="col-xs-10">
           <div class="box">
+            <form method="PATCH" enctype="multipart/form-data" action="{{ url('/courses/import') }}">
+            {{ csrf_field() }}
+            <div class="form-group">
+            <table class="table">
+              <tr>
+              <td width="40%" align="right"><label>Select File for Upload</label></td>
+              <td width="30">
+                <input type="file" name="select_file" />
+              </td>
+              <td width="30%" align="left">
+                <input type="submit" name="upload" class="btn btn-primary" value="Upload">
+              </td>
+              </tr>
+              <tr>
+              <td width="40%" align="right"></td>
+              <td width="30"><span class="text-muted">.xls, .xslx</span></td>
+              <td width="30%" align="left"></td>
+              </tr>
+            </table>
+            </div>
+          </form>
             <div class="box-header">
               <h3 class="box-title">Course List</h3>
 

@@ -6,6 +6,9 @@ use App\Course;
 use App\Department;
 use Illuminate\Http\Request;
 use Auth;
+use Excel;
+use Datatable;
+use DB;
 class CourseController extends Controller
 {
     /**
@@ -18,6 +21,66 @@ class CourseController extends Controller
          $courses = Course::latest()->orderby('department_id')->paginate(15);
         return view('courses.index', compact('courses'))
         ->with('i', (request()->input('page', 1) -1 )*15);
+    }
+
+
+    function import(Request $request)
+    {
+     $this->validate($request, [
+      'select_file'  => 'required|mimes:xls,xlsx'
+     ]);
+
+     $path = $request->file('select_file')->getRealPath();
+
+     $data = Excel::load($path)->get();
+
+     if($data->count() > 0)
+     {
+      foreach($data->toArray() as $key => $value)
+      {
+       foreach($value as $row)
+       {
+        $insert_data[] = array(
+         'course_name'  => $row['course_name'],
+         'course_code'   => $row['course_code'],
+         'credit_hours'   => $row['credit_hours'],
+         'course_fee'    => $row['course_fee'],
+         'prerequist_id'  => $row['prerequist_id'],
+         'department_id'   => $row['department_id']
+        );
+       }
+      }
+
+      if(!empty($insert_data))
+      {
+       DB::table('courses')->insert($insert_data);
+      }
+     }
+     return redirect()->route('courses.index')
+                       ->with('success', 'new course created successfully');
+    }
+
+    function excel()
+    {
+     $courses_data = DB::table('courses')->get()->toArray();
+     $courses_array[] = array('Course Name', 'Course Code', 'Credit Hours', 'Course Fee', 'Prerequist','Department');
+     foreach($courses_data as $course)
+     {
+      $courses_array[] = array(
+       'Course Name'  => $course->course_name,
+       'Course Code'   => $course->course_code,
+       'Credit Hours'    => $course->credit_hours,
+       'Course Fee'  => $course->PostalCode,
+       'Prerequist'   => $course->Country,
+       'Department'   => $course->Country
+      );
+     }
+     Excel::create('Customer Data', function($excel) use ($customer_array){
+      $excel->setTitle('Customer Data');
+      $excel->sheet('Customer Data', function($sheet) use ($customer_array){
+       $sheet->fromArray($customer_array, null, 'A1', false, false);
+      });
+     })->download('xlsx');
     }
 
     /**
@@ -74,7 +137,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return view('courses.detail', compact('course'));
     }
 
     /**

@@ -59,18 +59,17 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Department</label>
-                      <select class="form-control" name="department_id">
-                        <option value="{{$course->department->id}}">{{$course->department->department_code}}</option>
-                        
-                        <?php 
-                          use App\Department;
-                          $departments= Department::all(); ?>
-                        @foreach($departments as $department)
-                        <option value="{{$department->id}}">{{$department->department_code}}</option>
-                        @endforeach
-                      </select>
-                    </div>
+                  <label for="exampleInputPassword1">Department</label>
+                  <select class="form-control"  id="exampleInputPassword1" name='department_id'>
+                    <?php 
+                     use App\Department;
+                     $departments= Department::all(); ?>
+                    <option>Select one</option>
+                    @foreach($departments as $department)
+                     <option value="{{$department->id}}" {{($course->department_id==$departments->id)?'selected':''}}>{{$department->department_code}}</option>
+                    @endforeach
+                  </select>
+                </div>
 
               </div>
               <!-- /.box-body -->

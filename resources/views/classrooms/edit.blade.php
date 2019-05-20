@@ -16,35 +16,47 @@
         </ul>
       </div><br />
     @endif
-
-    <form action="{{route('batches.update',$batch->id)}}" method="post">
+    <div class="col-md-7">
+  <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Input Room Data</h3>
+            </div>
+    <form action="{{route('classrooms.update',$classroom->id)}}" method="post">
       @csrf
       @method('PUT')
-      <div class="row">
-        <div class="col-md-12">
-        <div class="box-body">
+      <div class="box-body">
                 <div class="form-group">
-                  <label for="campus_name">Batch Name</label>
-                  <input type="text" class="form-control" id="batch_name" placeholder="Enter Batch Name" name="name" value="{{$batch->name}}">
+                  <label for="campus_name">Room Label</label>
+                  <input type="text" class="form-control" id="room_label" placeholder="Enter Room label" name="room_label" value="{{$classroom->room_label}}">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Start Year</label>
-                  <input type="number" class="form-control" placeholder="Start Year" id="exampleInputPassword1" name="start_year"  value="{{$batch->start_year}}">
+                  <label for="exampleInputPassword1">Dimension</label>
+                  <input type="text" class="form-control" placeholder="Dimensions : 12m x 10m" id="exampleInputPassword1" name="dimensions" value="{{$classroom->dimensions}}">
                 </div>
                 
                 <div class="form-group">
-                  <label for="exampleInputPassword1">End Year</label>
-                  <input type="number" class="form-control" placeholder="End Year" id="exampleInputPassword1" name="end_year" value="{{$batch->end_year}}">
+                  <label for="exampleInputPassword1">Campus</label>
+                  <select class="form-control"  id="exampleInputPassword1" name='campus_id'>
+                  <option value="{{$classroom->campus->id}}">{{$classroom->campus->name}}</option>
+                  <?php 
+                     use App\Campus;
+                     $campuses= Campus::all(); ?>
+                     <option>Select one</option>
+                    @foreach($campuses as $campus)
+                    
+                     <option value="{{$campus->id}}">{{$campus->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
-                <div class="box-footer">
-                <a href="{{route('batches.index')}}" class="btn btn-sm btn-success">Back</a>
-                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-        </div>
               </div>
               <!-- /.box-body -->
 
-        
-      </div>
+              <div class="box-footer">
+              <a href="{{route('classrooms.index')}}" class="btn btn-sm btn-success">Back</a>
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
     </form>
+    </div>
+    </div>
   </div>
 @endsection
